@@ -1,0 +1,4 @@
+# Reference encrypted variables
+api_key: "{{ vault_api_key }}"
+db_password: "{{ vault_db_password }}"
+secret_token: "{{ vault_secret_token }}"
