@@ -6,6 +6,8 @@ It was created to show how to encrypt secrets—such as API keys, database passw
 and tokens—and reference them in an Ansible playbook. The repository is intended for 
 users who want to integrate secure secret management into their infrastructure-as-code workflows.
 
+---
+
 **Key components of the repository include:**
 
 Inventory File: Defines hosts and connection details. 
@@ -29,6 +31,8 @@ When you run the playbook with the command ansible-playbook -i inventory.ini pla
 you will be prompted to enter the vault password. 
 
 This process decrypts the sensitive data at runtime and allows the playbook to display the values securely.
+
+---
 
 **The benefits of using Ansible Vault, as demonstrated in this project, include:**
 
