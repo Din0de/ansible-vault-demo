@@ -1,77 +1,35 @@
-# **Overview**
+# **Ansible Vault Demo**
+
 
 This repository demonstrates how to securely manage sensitive data using Ansible Vault. 
-It provides a practical example of encrypting secrets (such as API keys, database passwords, 
-and secret tokens) and referencing them in an Ansible playbook. This method enhances security 
-by ensuring that critical information is not stored in plain text.
+It was created to show how to encrypt secrets—such as API keys, database passwords, 
+and tokens—and reference them in an Ansible playbook. The repository is intended for 
+users who want to integrate secure secret management into their infrastructure-as-code workflows.
 
----
+**Key components of the repository include:**
 
-Repository Structure
-
-ansible-vault-demo/
-├── group_vars/
-│   └── all/
-│       ├── vault.yml       # Encrypted secrets (API key, DB password, secret token)
-│       └── vars.yml        # Maps encrypted variables to simpler names for the playbook
-├── inventory.ini           # Defines the host and connection details
-└── playbook.yml            # Ansible playbook to decrypt and display the sensitive data
-
----
-
-**Files and Their Purpose**
-
-inventory.ini
-
-Defines the inventory for the playbook. For this demo, it contains:
+Inventory File: Defines hosts and connection details. 
+For example, the file specifies a local host with the following content:
 [local]
 localhost ansible_connection=local
 
-group_vars/all/vault.yml
-An encrypted YAML file created using Ansible Vault. It contains sensitive variables:
+Encrypted Vault File: Located in group_vars/all/vault.yml, this file contains sensitive variables (e.g., API key, database password, and secret token) and is protected by a vault password.
 
-vault_api_key: "super-secret-api-key"
-vault_db_password: "database-password-123"
-vault_secret_token: "secret-token-456"
+Variables File: Found at group_vars/all/vars.yml, this file maps the encrypted variable names to simpler ones for easier reference in the playbook.
 
-group_vars/all/vars.yml
-References the encrypted variables for use in the playbook:
+Playbook: The playbook.yml file runs against the local host group and uses the debug module to display decrypted values.
 
-api_key: "{{ vault_api_key }}"
-db_password: "{{ vault_db_password }}"
-secret_token: "{{ vault_secret_token }}"
+To use this project, ensure that you have installed Ansible, Python, and Git. 
 
-playbook.yml
-Contains the playbook that decrypts and displays the sensitive data using the debug module:
+The repository was set up in a Windows Subsystem for Linux (WSL) environment, 
+making it a practical resource for users in similar setups. 
+When you run the playbook with the command ansible-playbook -i inventory.ini playbook.yml --ask-vault-pass, 
+you will be prompted to enter the vault password. 
 
----
-- hosts: local
-  gather_facts: no
+This process decrypts the sensitive data at runtime and allows the playbook to display the values securely.
 
-  tasks:
-    - name: Display encrypted values (for demo only!)
-      debug:
-        msg:
-          - "API Key: {{ api_key }}"
-          - "DB Password: {{ db_password }}"
-          - "Secret Token: {{ secret_token }}"
+**The benefits of using Ansible Vault, as demonstrated in this project, include:**
 
-# **How to Use**
-
-View or Edit the Vault File:
-Use the following commands to view or edit the encrypted vault file:
-
-ansible-vault view group_vars/all/vault.yml
-ansible-vault edit group_vars/all/vault.yml
-
-Run the Playbook:
-To execute the playbook and display the decrypted values, run:
-
-ansible-playbook -i inventory.ini playbook.yml --ask-vault-pass
-
-Prerequisites
-Ansible: Version 2.9 or higher.
-WSL/Ubuntu: The project is designed to run in a Windows Subsystem for Linux environment.
-Git: For version control.
-Python & Pip: Required for running Ansible.
-
+Preventing sensitive data from being stored in plain text.
+Ensuring that credentials and secrets remain protected, even when code is shared or pushed to version control.
+Streamlining the integration of security into your infrastructure management workflow.
