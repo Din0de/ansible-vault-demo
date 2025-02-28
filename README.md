@@ -19,6 +19,8 @@ Variables File: Found at group_vars/all/vars.yml, this file maps the encrypted v
 
 Playbook: The playbook.yml file runs against the local host group and uses the debug module to display decrypted values.
 
+---
+
 To use this project, ensure that you have installed Ansible, Python, and Git. 
 
 The repository was set up in a Windows Subsystem for Linux (WSL) environment, 
